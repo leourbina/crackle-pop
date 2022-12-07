@@ -2,7 +2,11 @@ package main
 
 import (
 	"fmt"
+	"os"
+	"strconv"
 )
+
+var DEFAULT_N int = 100
 
 /**
  *
@@ -13,7 +17,20 @@ import (
  * If it's divisible by both 3 and 5, print CracklePop.
  * */
 func main() {
-	CracklePop(100)
+	CracklePop(GetArgs())
+}
+
+func GetArgs() int {
+	args := os.Args[1:]
+	if len(args) > 0 {
+		input := args[0]
+		n, err := strconv.Atoi(input)
+		if err != nil {
+			panic(fmt.Errorf("Unable to parse %s as an int", input))
+		}
+		return n
+	}
+	return DEFAULT_N
 }
 
 func CracklePop(n int) {
